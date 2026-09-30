@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>شعیبی زاده | کارگزاری بیمه</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tahoma', 'Segoe UI', Tahoma, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 30px rgba(0,0,0,0.08);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #c41e3a 0%, #9b1b30 100%);
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06) 0%, transparent 40%),
+        linear-gradient(135deg, #c41e3a 0%, #8b1528 100%);
+      padding: 40px 20px 30px;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .avatar-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 4px solid white;
+      background: #fff;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      color: #c41e3a;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .name {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+
+    /* Content */
+    .content {
+      padding: 24px 18px 40px;
+    }
+
+    /* Expandable boxes */
+    .info-box {
+      background: linear-gradient(180deg, #ffffff 0%, #f0f2f5 100%);
+      border: 1px solid #dde1e6;
+      border-radius: 14px;
+      padding: 15px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      box-shadow:
+        0 4px 0 #c5cdd6,
+        0 5px 12px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .info-box:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 5px 0 #c5cdd6,
+        0 7px 14px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .info-box:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 2px 0 #c5cdd6,
+        0 2px 6px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .info-box .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .info-box .arrow {
+      font-size: 12px;
+      color: #888;
+      transition: transform 0.25s ease;
+    }
+
+    .info-box.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.35s ease, margin 0.35s ease;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      border: 1px solid transparent;
+    }
+
+    .details.show {
+      max-height: 900px;
+      border-color: #eee;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .details-text {
+      font-size: 14px;
+      line-height: 1.95;
+      color: #333;
+    }
+
+    .details-text strong {
+      color: #c41e3a;
+    }
+
+    .details-text ul {
+      margin: 8px 0 8px 0;
+      padding-right: 18px;
+    }
+
+    .details-text li {
+      margin-bottom: 4px;
+    }
+
+    /* Colored 3D Buttons */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      position: relative;
+      transition: all 0.18s ease;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.18),
+        0 8px 16px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 0 rgba(0,0,0,0.18),
+        0 12px 20px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow:
+        0 2px 0 rgba(0,0,0,0.2),
+        0 3px 8px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+
+    .btn-eitaa {
+      background: linear-gradient(180deg, #9b59f5 0%, #7b2ff7 45%, #5a1fd6 100%);
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(180deg, #2ecc71 0%, #25D366 45%, #128C7E 100%);
+    }
+
+    .btn-phone {
+      background: linear-gradient(180deg, #3498db 0%, #2980b9 45%, #1a5276 100%);
+    }
+
+    /* Section title */
+    .section-title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #444;
+      margin: 22px 0 16px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: #c41e3a;
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* Color accents for insurance boxes */
+    .box-body .right span:first-child { color: #e67e22; }
+    .box-third .right span:first-child { color: #2980b9; }
+    .box-service .right span:first-child { color: #c41e3a; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Header -->
+    <div class="header">
+      <div class="avatar-placeholder">🛡️</div>
+      <div class="name">شعیبی زاده</div>
+      <div class="subtitle">کارگزاری صدور بیمه</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- شرح خدمات -->
+      <div class="info-box box-service" onclick="toggleBox(this, 'details-service')">
+        <div class="right">
+          <span>📋</span>
+          <span>شرح خدمات</span>
+        </div>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="details" id="details-service">
+        <div class="details-text">🌹 با سلام و احترام<br><br>
+به اطلاع می‌رساند بنده دارای <strong>کد کارگزاری صدور بیمه</strong> بوده و در زمینه صدور و تمدید انواع بیمه‌نامه‌ها از جمله:<br>
+🚗 بیمه شخص ثالث<br>
+🚘 بیمه بدنه خودرو<br>
+🏠 بیمه آتش‌سوزی منزل و محل کار<br>
+🔐 بیمه سرقت<br>
+📄 و سایر انواع بیمه‌نامه‌ها<br>
+فعالیت دارم.<br><br>
+در صورت نیاز خودتان یا دوستان و آشنایان، خوشحال می‌شوم در خدمت باشم.<br>
+پیشنهاد می‌کنم قبل از تمدید یا خرید بیمه‌نامه، حتماً یک استعلام قیمت هم از بنده دریافت کنید؛ ممکن است از نظر مبلغ پرداختی و شرایط ارائه‌شده، تفاوت قابل توجهی وجود داشته باشد.<br><br>
+با احترام<br>
+<strong>شعیبی زاده</strong></div>
+      </div>
+
+      <!-- بیمه بدنه -->
+      <div class="info-box box-body" onclick="toggleBox(this, 'details-body')">
+        <div class="right">
+          <span>🚘</span>
+          <span>بیمه بدنه</span>
+        </div>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="details" id="details-body">
+                <div class="details-text">
+          <strong>پوشش‌های پایه بیمه بدنه:</strong><br>
+          این پوشش‌ها به‌صورت استاندارد در بیمه‌نامه بدنه وجود دارند و خسارت‌های اصلی خودرو را جبران می‌کنند:<br><br>
+          • <strong>تصادف و برخورد:</strong> خسارت ناشی از تصادف با خودروی دیگر، برخورد با اجسام ثابت یا متحرک (مثل دیوار، جدول، حیوان و ...)<br>
+          • <strong>آتش‌سوزی، صاعقه و انفجار:</strong> خسارت ناشی از آتش‌گرفتن خودرو، برخورد صاعقه یا انفجار<br>
+          • <strong>سرقت کلی:</strong> در صورتی که کل خودرو به سرقت برود و پیدا نشود، خسارت بر اساس شرایط بیمه‌نامه پرداخت می‌شود<br><br>
+
+          <strong>پوشش‌های تکمیلی مهم:</strong><br>
+          این پوشش‌ها اختیاری هستند و با پرداخت حق‌بیمه بیشتر به بیمه‌نامه اضافه می‌شوند:<br><br>
+          • <strong>ایاب و ذهاب:</strong> در مدت تعمیر خودرو، هزینه رفت‌وآمد روزانه به شما پرداخت می‌شود<br>
+          • <strong>بلایای طبیعی:</strong> پوشش خسارت ناشی از سیل، زلزله، طوفان، تگرگ و سقوط بهمن<br>
+          • <strong>سرقت درجا (جزئی):</strong> سرقت لوازم و قطعات خودرو (مثل آینه، رینگ، باتری و ...)<br>
+          • <strong>شکست شیشه:</strong> تعویض یا تعمیر شیشه‌های خودرو به هر علت (غیر از موارد استثنا)<br>
+          • <strong>نوسانات قیمت:</strong> در زمان خسارت، مبلغ بر اساس قیمت روز خودرو محاسبه می‌شود نه قیمت زمان خرید بیمه‌نامه<br>
+          • <strong>پاشیدن مواد شیمیایی و اسیدی:</strong> خسارت ناشی از پاشیدن رنگ، اسید و مواد شیمیایی روی بدنه<br><br>
+
+          💡 انتخاب پوشش‌های تکمیلی مناسب، تفاوت زیادی در میزان حمایت بیمه‌نامه ایجاد می‌کند.
+        </div>
+      </div>
+
+      <!-- بیمه شخص ثالث -->
+      <div class="info-box box-third" onclick="toggleBox(this, 'details-third')">
+        <div class="right">
+          <span>🚗</span>
+          <span>بیمه شخص ثالث</span>
+        </div>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="details" id="details-third">
+                <div class="details-text">
+          <strong>بیمه شخص ثالث چیست؟</strong><br>
+          بیمه شخص ثالث، خسارت‌هایی را که در اثر حوادث رانندگی به <strong>جان یا مال دیگران</strong> وارد می‌شود، جبران می‌کند. داشتن این بیمه برای تمام وسایل نقلیه موتوری <strong>الزامی</strong> است.<br><br>
+
+          <strong>پوشش‌های اصلی:</strong><br>
+          • <strong>خسارت جانی اشخاص ثالث:</strong> شامل دیه فوت، نقص عضو و هزینه‌های درمانی افراد زیان‌دیده (سرنشین خودروی مقابل، عابر پیاده و ...)<br>
+          • <strong>خسارت مالی اشخاص ثالث:</strong> خسارت وارد به خودروی مقابل یا اموال دیگران (مثل دیوار، مغازه و ...)<br>
+          • <strong>پوشش حوادث راننده:</strong> جبران خسارت جانی وارد به راننده مقصر حادثه (طبق شرایط قانون)<br><br>
+
+          <strong>نکات مهم:</strong><br>
+          • سقف تعهدات جانی معمولاً بر اساس نرخ دیه سالانه تعیین می‌شود<br>
+          • سقف تعهدات مالی را می‌توانید بالاتر انتخاب کنید تا در تصادفات سنگین پوشش بهتری داشته باشید<br>
+          • نداشتن بیمه‌نامه معتبر شخص ثالث، علاوه بر جریمه، می‌تواند منجر به توقیف خودرو و مسئولیت شخصی در پرداخت خسارت شود<br><br>
+
+          ✅ پیشنهاد می‌شود قبل از تمدید، شرایط و قیمت شرکت‌های مختلف را مقایسه کنید.
+        </div>
+      </div>
+
+      <!-- دسترسی سریع -->
+      <div class="section-title">دسترسی سریع</div>
+
+      <!-- تماس تلفنی -->
+      <a href="tel:+989163021553" class="btn btn-phone">
+        <span>تماس تلفنی</span>
+        <span>📞</span>
+      </a>
+
+      <!-- ایتا -->
+      <a href="https://eitaa.com/Ali5700" class="btn btn-eitaa" target="_blank">
+        <span>ارتباط از طریق ایتا</span>
+        <span>💬</span>
+      </a>
+
+      <!-- واتساپ -->
+      <a href="https://wa.me/989163021553" class="btn btn-whatsapp" target="_blank">
+        <span>ارتباط از طریق واتساپ</span>
+        <span>📱</span>
+      </a>
+
+    </div>
+
+    <div class="footer">
+      کارت ویزیت دیجیتال | شعیبی زاده
+    </div>
+  </div>
+
+  <script>
+    function toggleBox(box, detailsId) {
+      const details = document.getElementById(detailsId);
+      const isOpen = details.classList.contains('show');
+
+      // بستن همه کادرهای باز
+      document.querySelectorAll('.details').forEach(d => d.classList.remove('show'));
+      document.querySelectorAll('.info-box').forEach(b => b.classList.remove('open'));
+
+      // اگر قبلاً بسته بود، بازش کن
+      if (!isOpen) {
+        details.classList.add('show');
+        box.classList.add('open');
+      }
+    }
+  </script>
+</body>
+</html>
